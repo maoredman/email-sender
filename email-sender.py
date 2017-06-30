@@ -6,27 +6,27 @@ from email.mime.text import MIMEText
 from email.header import Header
 from email.utils import formataddr
 
+# remember to change your computer name too!
 
-mail_host="smtps.ntu.edu.tw"  # sample SMTP server address
-mail_user="ACCOUNT"    # account
-mail_pass="PASSWORD"   # password
+mail_host = "smtps.ntu.edu.tw"  # sample SMTP server address
+mail_user = "USERNAME"    # account
+mail_pass = "PASSWORD"   # password
 
+message = MIMEText('嵩仁同學，\n\n祝你生日快樂。可是毛同學比你帥。\n不用回我信了。\n\nBest wishes,\n世偉', 'plain', 'utf-8')    # email content goes here
+subject = '黃同學，blah blah blah'
+message['Subject'] = Header(subject, 'utf-8')
 
-sender = 'XXXX@ntu.edu.tw'  # single email address
-receivers = ['OOOO@ntu.edu.tw']  # can be a list of email addresses
-
-message = MIMEText('信件內容寫在這！\n換行還要這樣。', 'plain', 'utf-8')    # email content goes here
-
-from_addr = formataddr((str(Header('SENDER_NAME', 'utf-8')), "SENDER_EMAIL"))
+sender = 'liao@csie.ntu.edu.tw'  # single email address
+from_addr = formataddr((str(Header('廖世偉', 'utf-8')), "liao@csie.ntu.edu.tw"))
 message['from'] = from_addr
 # message['from'] = Header("xxx", 'utf-8')  # this will become xxx@smtps.ntu.edu.tw
-message['to'] = Header(receivers[0])
-# message['to'] =  Header("testReceiver@example.com")  # this can be anything you want. same format applies to 'from' header
-# message['reply-to'] = Header("b04901117@ntu.edu.tw")  # sets the reply-to address
 
+cc = ['b04902099@ntu.edu.tw']  # can be a list of email addresses
+bcc = ['b04901117@ntu.edu.tw', 'ccm29cam@gmail.com'] # other people won't know this person received email
+message['to'] = Header(','.join(cc)) # header is a comma-separated string
+receivers = cc + bcc
+message['reply-to'] = Header("b04901117@ntu.edu.tw")  # sets the reply-to address
 
-subject = '標題'
-message['Subject'] = Header(subject, 'utf-8')
 
 
 try:
